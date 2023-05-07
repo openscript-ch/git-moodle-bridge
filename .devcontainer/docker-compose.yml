@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:db
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  db:
+    image: postgres:alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+
+    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+  
+  lms:
+    image: erseco/alpine-moodle
+    environment:
+      - LANG=en_US.UTF-8
+      - LANGUAGE=en_US:en
+      - SITE_URL=http://localhost
+      - DB_TYPE=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_PREFIX=mdl_
+      - SSLPROXY=false
+      - MOODLE_EMAIL=user@example.com
+      - MOODLE_LANGUAGE=en
+      - MOODLE_SITENAME=git-moodle-bridge
+      - MOODLE_USERNAME=openscript
+      - MOODLE_PASSWORD=openscript
+      - SMTP_HOST=smtp
+      - SMTP_PORT=1025
+      - SMTP_USER=your_email@gmail.com
+      - MOODLE_MAIL_NOREPLY_ADDRESS=noreply@localhost
+      - MOODLE_MAIL_PREFIX=[moodle]
+    ports:
+      - 8080:8080
+    volumes:
+      - lms-data:/var/www/moodledata
+      - lms-html:/var/www/html
+    depends_on:
+      - db
+
+  smtp:
+    image: dockage/mailcatcher
+    ports:
+      - 8081:1080
+
+
+volumes:
+  db-data: null
+  lms-data: null
+  lms-html: null
