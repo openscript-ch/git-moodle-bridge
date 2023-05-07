@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/vscode/devcontainers/base:bullseye
 
-ENV DENO_INSTALL=/denoRUN 
+ENV DENO_INSTALL=/deno 
 RUN mkdir -p /deno \
     && curl -fsSL https://deno.land/x/install/install.sh | sh \
     && chown -R vscode /deno
