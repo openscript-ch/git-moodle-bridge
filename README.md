@@ -2,3 +2,8 @@
 
 Moodle is one of the most popular learning management systems. The goal if this
 project is, to steer the content of a Moodle course via Markdown files.
+
+## Development
+
+There is a preconfigured development environment, which contains a Moodle
+installation and SMTP server for testing.
