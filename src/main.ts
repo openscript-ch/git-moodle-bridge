@@ -1,9 +1,9 @@
 import { getCourseClient } from "./client/course.client.ts";
-import { getArgs } from "./parser/args.parser.ts";
+import { parseArgs } from "./parser/args.parser.ts";
 import { getConfiguration } from "./parser/configuration.parser.ts";
 
 async function main() {
-  const args = getArgs();
+  const args = parseArgs();
   const configuration = await getConfiguration(args);
   const coursesClient = getCourseClient(configuration);
 
