@@ -6,5 +6,9 @@ export function parseArgs(rawArgs: string[] = Deno.args): Args {
   if (!args.configPath) {
     throw new Error("Please set the path to the course you want to import.");
   }
-  return { configPath: args.configPath as string, api: args.api, token: args.token };
+  return {
+    configPath: args.configPath as string,
+    api: args.api,
+    token: args.token,
+  };
 }
