@@ -1,3 +1,5 @@
+Unfortunately it is impossible to change a courses content via the API of Moodle. With that, this project became obsolete.
+
 # Markdown Moodle Bridge
 
 Moodle is one of the most popular learning management systems. The goal if this
@@ -5,7 +7,9 @@ project is, to steer the content of a Moodle course via Markdown files.
 
 ## Set up
 
-<!-- TODO -->
+1. Configure the following permissions for the service:
+   - `core_course_get_contents`: For getting the full course listing with blocks and modules.
+   - `core_course_edit_section`: For
 
 ## Contribute
 
